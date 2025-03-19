@@ -29,12 +29,29 @@ def calcular_factoriales(desde, hasta):
 if len(sys.argv) > 1:
     argumento = sys.argv[1]
 else:
-    argumento = input("Ingrese un número o un rango (ej. 4-8): ")
+    argumento = input("Ingrese un número o un rango (ej. 4-8 o -10 o 5-): ")
 
-#para saber si es un solo numero o un rango
+
+#Para saber si es un solo numero o un rango (ademas de si tiene o no limite inferior/superior)
 if '-' in argumento:
-    desde, hasta = map(int, argumento.split('-'))
-    calcular_factoriales(desde, hasta)
+    #  sin límite inferior
+    if argumento.startswith('-'):
+        hasta = int(argumento[1:])  
+        desde = 1 
+        calcular_factoriales(desde, hasta)
+
+    # sin límite superior
+    elif argumento.endswith('-'):
+        desde = int(argumento[:-1])  
+        hasta = 60  
+        calcular_factoriales(desde, hasta)
+
+    # Rango con ambos límites
+    else:
+        desde, hasta = map(int, argumento.split('-'))
+        calcular_factoriales(desde, hasta)
+
 else:
     num = int(argumento)
     print(f"Factorial de {num} es {factorial(num)}")
+  
